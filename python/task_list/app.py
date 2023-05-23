@@ -39,7 +39,7 @@ class TaskList:
         for project, tasks in self.tasks.items():
             self.console.print(project)
             for task in tasks:
-                self.console.print(f"  [{'x' if task.is_done() else ' '}] {task.id}: {task.description}")
+                self.console.print(task.summary)
             self.console.print()
 
     def add(self, command_line: str) -> None:
@@ -94,4 +94,3 @@ class TaskList:
     def next_id(self) -> int:
         self.last_id += 1
         return self.last_id
-
