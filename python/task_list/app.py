@@ -1,6 +1,8 @@
 from typing import Dict, List
 
 from task_list.console import Console
+from task_list.exceptions import ProjectAlreadyExistsError
+from task_list.project import Project
 from task_list.task import Task
 
 
@@ -10,7 +12,8 @@ class TaskList:
     def __init__(self, console: Console) -> None:
         self.console = console
         self.last_id: int = 0
-        self.tasks: Dict[str, List[Task]] = dict()
+        self.projects: Dict[str, Project] = {}
+        self.tasks: Dict[str, List[Task]] = {}
 
     def run(self) -> None:
         while True:
@@ -52,6 +55,10 @@ class TaskList:
             self.add_task(project_task[0], project_task[1])
 
     def add_project(self, name: str) -> None:
+        if name in self.projects:
+            raise ProjectAlreadyExistsError()
+
+        self.projects[name] = Project(_id=name)
         self.tasks[name] = []
 
     def add_task(self, project: str, description: str) -> None:
