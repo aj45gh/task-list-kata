@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from task_list.console import Console
-from task_list.exceptions import ProjectAlreadyExistsError
+from task_list.exceptions import CommandNotFoundError, ProjectAlreadyExistsError
 from task_list.project import Project
 from task_list.task import Task
 
@@ -36,7 +36,7 @@ class TaskList:
         elif command == "help":
             self.help()
         else:
-            self.error(command)
+            raise CommandNotFoundError(f"Command '{command}' not found")
 
     def show(self) -> None:
         for project, tasks in self.tasks.items():
@@ -92,10 +92,6 @@ class TaskList:
         self.console.print("  add task <project name> <task description>")
         self.console.print("  check <task ID>")
         self.console.print("  uncheck <task ID>")
-        self.console.print()
-
-    def error(self, command: str) -> None:
-        self.console.print(f"I don't know what the command {command} is.")
         self.console.print()
 
     def next_id(self) -> int:

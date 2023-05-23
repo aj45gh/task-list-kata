@@ -1,5 +1,5 @@
 from task_list.app import TaskList
-from task_list.exceptions import ProjectAlreadyExistsError
+from task_list.exceptions import CommandNotFoundError, ProjectAlreadyExistsError
 
 import subprocess
 import unittest
@@ -22,6 +22,11 @@ def test_project_already_exists(task_list: TaskList):
 
     with pytest.raises(ProjectAlreadyExistsError):
         task_list.add_project("test1")
+
+
+def test_invalid_command(task_list: TaskList):
+    with pytest.raises(CommandNotFoundError):
+        task_list.execute("notacommand")
 
 
 class ApplicationTest(unittest.TestCase):
