@@ -1,7 +1,6 @@
 import sys
 
-from task_list.console import Console
-from task_list.app import TaskList
+from task_list.app import Console, TaskList
 
 
 def main():
@@ -11,4 +10,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
